@@ -1,3 +1,21 @@
+function add(a,b) 
+{
+    return a+b;
+};
+function subtract(a,b)
+{
+    return a-b;
+}
+function multiply(a,b) 
+{
+    return a*b;
+};
+
+function divide(a,b) 
+{
+    return a/b;
+};
+
 function enterInput()
 {
     if(this.classList.contains("release"))
@@ -6,10 +24,11 @@ function enterInput()
         {
             processedInput = [];
             continueAfterValidation = textValidation();
-            console.log(continueAfterValidation);
+            
             if(continueAfterValidation)
             {
                 textToArrayFormating();
+                outputText.textContent = operate();
                 console.table(processedInput);
             }
         }
@@ -21,13 +40,65 @@ function enterInput()
     else
     { 
         input += this.id;
-        inputText.textContent = input;
+        inputText.textContent = input.slice(1);
     }
     limitDisplayLength();
 }
 function isOperator(item)
 {
-    return (item == "+" || item == "-" || item == "*" || item == "/")
+    return (item == "+" ||  item == "-" || item == "*" || item == "/") 
+}
+
+function operate()
+{
+    let num1,operator,num2,result;
+    let singleOperation = {
+        num1, operator, num2
+    }
+
+    for(let i=0;i<processedInput.length;i++)
+    {
+        if(num1==null)
+        {
+            num1 = parseInt(processedInput[i]);
+        }
+        else if(operator==null)
+        {
+            operator = processedInput[i];
+        }
+        else if(num2==null)
+        {
+            num2 = parseInt(processedInput[i]);
+            switch(operator)
+            {
+                case "+":
+                {
+                    result = add(num1,num2);
+                    break;
+                }
+                case "-":
+                {
+                    result = subtract(num1,num2);
+                    break;
+                } 
+                case "*":
+                {
+                    result = multiply(num1,num2);
+                    break;
+                }
+                case "/":
+                {
+                    result = divide(num1,num2);
+                    break;
+                }
+            }
+
+            num1 = result;
+            operator = null;
+            num2 = null;
+        }
+    }
+    return num1;
 }
 function textToArrayFormating()
 {
@@ -40,9 +111,16 @@ function textToArrayFormating()
         }
         if(isOperator(input[i]))
         {
-            ++keyTracker;
-            processedInput[keyTracker] =  input[i];
-            ++keyTracker;
+            if(isOperator(input[i-1]) && input[i]=="-")
+            {
+                processedInput[keyTracker] += input[i];
+            }
+            else
+            {
+                ++keyTracker;
+                processedInput[keyTracker] =  input[i];
+                ++keyTracker;
+            }
         }
         else
         {
@@ -55,18 +133,21 @@ function textValidation()
     let noErrors = true;
     let currentKey;
     let previousKey = input[0];
-    if(isOperator(previousKey))
-    {
-        alert("ERROR: You can not start off with an operator!");
-        noErrors = false;
-    }
     for(let i=1;i<input.length;i++)
     {
         currentKey = input[i];
-        if(isOperator(currentKey) == isOperator(previousKey))
+
+        if(isOperator(currentKey) && isOperator(previousKey))
         {
-            alert("ERROR: You can not have mutliply operators right next to each other!");
-            noErrors = false;
+            if(currentKey=="-") //This protects negative numbers when using operations
+            {
+                continue;
+            }
+            else
+            {
+                alert("ERROR: You can not have mutliply operators right next to each other!");
+                noErrors = false;
+            }
         }
         previousKey = currentKey;
     }
@@ -85,9 +166,10 @@ function textValidation()
 }
 function clearInput()
 {
-    input = "";
+    input = "0";
     processedInput = [];
-    inputText.textContent = ""; //
+    inputText.textContent = "0"; 
+    outputText.textContent = "";
 }
 function limitDisplayLength()
 {
@@ -102,13 +184,13 @@ const inputText = document.querySelector('#inputText');
 const outputText = document.querySelector('#outputText');
 
 const keys = Array.from(document.querySelectorAll('.key'));
-let input = "";
+let input = "0";
 let output = "";
 let processedInput = [];
 let continueAfterValidation = true;
+
 const displayMaxWidth = inputText.offsetWidth;
 keys.forEach(key => key.addEventListener('click',enterInput));
-
-inputText.textContent = "12312312313132";
+inputText.textContent = "0"; 
 
 
