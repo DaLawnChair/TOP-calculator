@@ -22,45 +22,63 @@ function enterInput()
     {
         if(this.id === "=")
         {
+            
+            input = "0"+input; //Adds a 0 so that operations like -3 will work.
             processedInput = [];
             continueAfterValidation = textValidation();
             
             if(continueAfterValidation)
             {
                 textToArrayFormating();
+                console.log("done textToArrayFormating()");
                 outputText.textContent = operate();
+                console.log("done operate()");
                 console.table(processedInput);
             }
+            input = input.substring(1,input.length); //Ensures that the 0 is not seen after usage
+            console.log("done all");
         }
         else if(this.id === "C")
         {
             clearInput();
         }
+        else if(this.id === "Delete")
+        {
+            deleteLastCharacter();
+        }
     }
     else
     { 
         input += this.id;
-        inputText.textContent = input.slice(1);
+        inputText.textContent = input;
+        limitDisplayLength();
     }
-    limitDisplayLength();
+    if(this.id ==="=") 
+    {
+        console.log("done enterInput");
+        console.log(finished);
+    }   
 }
 function isOperator(item)
 {
     return (item == "+" ||  item == "-" || item == "*" || item == "/") 
 }
-
+function deleteLastCharacter()
+{
+    input = input.substring(0,input.length-1);
+    inputText.textContent = input;
+    limitDisplayLength();
+    outputText.textContent = "";
+}
 function operate()
 {
     let num1,operator,num2,result;
-    let singleOperation = {
-        num1, operator, num2
-    }
-
+    
     for(let i=0;i<processedInput.length;i++)
     {
         if(num1==null)
         {
-            num1 = parseInt(processedInput[i]);
+            num1 = parseFloat(processedInput[i]);
         }
         else if(operator==null)
         {
@@ -68,7 +86,7 @@ function operate()
         }
         else if(num2==null)
         {
-            num2 = parseInt(processedInput[i]);
+            num2 = parseFloat(processedInput[i]);
             switch(operator)
             {
                 case "+":
@@ -88,16 +106,28 @@ function operate()
                 }
                 case "/":
                 {
+                    if(num2 == 0)
+                    {
+                        result = "ERROR: #/0";
+                        return result;
+                        break;
+                    }
                     result = divide(num1,num2);
                     break;
                 }
             }
-
             num1 = result;
             operator = null;
             num2 = null;
         }
     }
+    console.log("done calculations");
+    console.log(num1);
+    if(num1 != parseInt(num1))
+    {
+        num1 = num1.toPrecision(maxNumberOfCharactersOutput);
+    }
+    num1 = num1.toString();
     return num1;
 }
 function textToArrayFormating()
@@ -156,24 +186,19 @@ function textValidation()
         alert("ERROR: You can not end with an operator!");
         noErrors = false;
     }
-
-    if(input.search("/0")!=-1)
-    {
-        alert("ERROR: You can not divide by 0!");
-        noErrors = false;
-    }
     return noErrors;
 }
 function clearInput()
 {
-    input = "0";
+    input = "";
     processedInput = [];
-    inputText.textContent = "0"; 
+    inputText.textContent = ""; 
     outputText.textContent = "";
 }
 function limitDisplayLength()
 {
-    while(inputText.offsetWidth > displayMaxWidth)
+
+    while(inputText.textContent.length > maxNumberOfCharactersInput)
     {
         inputText.textContent = inputText.textContent.slice(1);
     }    
@@ -184,13 +209,14 @@ const inputText = document.querySelector('#inputText');
 const outputText = document.querySelector('#outputText');
 
 const keys = Array.from(document.querySelectorAll('.key'));
-let input = "0";
+let input = "";
 let output = "";
+const maxNumberOfCharactersInput = 15;
+const maxNumberOfCharactersOutput = 13;
 let processedInput = [];
 let continueAfterValidation = true;
 
 const displayMaxWidth = inputText.offsetWidth;
+const displayMaxHeight = inputText.offSetHeight;
 keys.forEach(key => key.addEventListener('click',enterInput));
-inputText.textContent = "0"; 
-
-
+inputText.textContent = input; 

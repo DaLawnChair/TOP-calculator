@@ -41,6 +41,7 @@ body
 
 #displays
 {
+
     flex-direction: column;
     width: 440px;
     height: 150px;
@@ -58,12 +59,12 @@ body
 }
 #inputText
 {
-    font-size: 50px;
+    font-size: 45px;
     min-height: 55px;
 }
 #outputText
 {
-    font-size: 60px;
-    min-height: 65px;
+    font-size: 45px;
+    min-height: 55px;
     text-align: end;
 }
