@@ -1,70 +1,106 @@
 body
 {
-    padding: 0px;
-    margin:5px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+#whole
+{
+    padding: 5px;
+    border-radius: 20px;
     border: 5px solid blue;
     width: min-content;
+    justify-content: center;
 }
 
+.key, .display
+{
+    font-family: 'Helvetica Condensed', 'Arial Narrow', 'Soho';
+    border-radius: 10px;
+    background-color: grey;
+}
 .key
 {
     font-size: 50px;
-    font-family: 'Courier New', Courier, monospace;
-    border: 5px solid black;
-    border-radius: 10px;
-    background-color: grey;
     width: 100px;
     height: 100px;
 }
+
+.number
+{
+    background-color: #4F0EA7; 
+}
+.operation
+{
+    background-color: #E4DD49;
+}
+
+#c, #delete
+{    
+    width: 215px;
+    background-color: #F54441;
+}
+
 .container
 {
     display: flex;
     flex-wrap: wrap;
-    border: 2px solid red;
     border-radius: 10px;
+    background-color: black;
     margin: 0px;
-    gap:5px;
-    padding:5px;
+    gap: 10px;
+    padding: 5px;
 }
+
 #numbers
 {
-    width:320px;
+    width: 320px;
 }
+
 #operations
 {
     width: 105px;
+    justify-content: center;
 }
+
 #mainBody
 {
-    display:flex;
+    display: flex;
 }
 
 #displays
 {
-
     flex-direction: column;
-    width: 440px;
-    height: 150px;
+    width: 445px;
+    height: 120px;
 }
 
 .display
 {
     flex-direction: column;
+    background-color: #09BF08;
     margin: 0px;
-    font-family: 'Courier New', Courier, monospace;
-    border-radius: 10px;
-    border: 5px solid black;
-    background-color: grey;
-    min-width: 430px;
+    width: 435px;
+    height: 65px;
+    font-size: 45px;
+    color: #EFF1EF;
 }
+
+#displayWrapper
+{
+    margin: 0px;
+    padding: 0px;
+    background-color: #09BF08;
+    border-radius: 10px;
+}
+
 #inputText
 {
-    font-size: 45px;
-    min-height: 55px;
+    padding-left: 5px;
 }
+
 #outputText
 {
-    font-size: 45px;
-    min-height: 55px;
     text-align: end;
+    padding-right: 5px;
 }

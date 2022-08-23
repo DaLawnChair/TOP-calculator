@@ -9,36 +9,41 @@
     <script src="scripts.js" defer></script>  
 </head>
 <body>
-    <div class="container" id="displays">
-        <p class="display" id="inputText"></p>
-        <p class="display" id="outputText"></p>    
-    </div>
-    <div class="container" id="functionKeys">
-        <button class="key release" id="C">C</button>
-        <button class="key release" id="Delete">Delete</button>
-    </div>
-    <div id="mainBody">
-        <div class="container" id="numbers">
-            <button class="key" id=7>7</button>
-            <button class="key" id=8>8</button>
-            <button class="key" id=9>9</button>
-            <button class="key" id=4>4</button>
-            <button class="key" id=5>5</button>
-            <button class="key" id=6>6</button>
-            <button class="key" id=1>1</button>
-            <button class="key" id=2>2</button>
-            <button class="key" id=3>3</button>
-            <button class="key" id=0>0</button>
-            <button class="key" id=".">.</button>
-            <button class="key release" id="=">=</button>
+    <div class="container" id="whole">
+        <div class="container" id="displays">
+            <div id="displayWrapper">
+                <p class="display" id="inputText"></p>
+                <p class="display" id="outputText"></p>  
+            </div>  
         </div>
+        
+        <div class="container" id="functionKeys">
+            <button class="key release" id="c">C</button>
+            <button class="key release" id="delete">Delete</button>
+        </div>
+        <div id="mainBody">
+            <div class="container" id="numbers">
+                <button class="key number" id=7>7</button>
+                <button class="key number" id=8>8</button>
+                <button class="key number" id=9>9</button>
+                <button class="key number" id=4>4</button>
+                <button class="key number" id=5>5</button>
+                <button class="key number" id=6>6</button>
+                <button class="key number" id=1>1</button>
+                <button class="key number" id=2>2</button>
+                <button class="key number" id=3>3</button>
+                <button class="key number" id=0>0</button>
+                <button class="key number" id=".">.</button>
+                <button class="key number release" id="=">=</button>
+            </div>
 
-        <div class="container" id="operations">
-            <button class="key" id="+">+</button>
-            <button class="key" id="-">-</button>
-            <button class="key" id="*">*</button>
-            <button class="key" id="/">/</button>
+            <div class="container" id="operations">
+                <button class="key operation" id="+">+</button>
+                <button class="key operation" id="-">-</button>
+                <button class="key operation" id="*">*</button>
+                <button class="key operation" id="/">/</button>
 
+            </div>
         </div>
     </div>
 </body>

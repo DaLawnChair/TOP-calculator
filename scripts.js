@@ -38,11 +38,11 @@ function enterInput()
             input = input.substring(1,input.length); //Ensures that the 0 is not seen after usage
             console.log("done all");
         }
-        else if(this.id === "C")
+        else if(this.id === "c")
         {
             clearInput();
         }
-        else if(this.id === "Delete")
+        else if(this.id === "delete")
         {
             deleteLastCharacter();
         }
@@ -163,6 +163,7 @@ function textValidation()
     let noErrors = true;
     let currentKey;
     let previousKey = input[0];
+    iteration:
     for(let i=1;i<input.length;i++)
     {
         currentKey = input[i];
@@ -177,6 +178,7 @@ function textValidation()
             {
                 alert("ERROR: You can not have mutliply operators right next to each other!");
                 noErrors = false;
+                break iteration;
             }
         }
         previousKey = currentKey;
@@ -204,14 +206,13 @@ function limitDisplayLength()
     }    
 }
 
-
 const inputText = document.querySelector('#inputText');
 const outputText = document.querySelector('#outputText');
 
 const keys = Array.from(document.querySelectorAll('.key'));
 let input = "";
 let output = "";
-const maxNumberOfCharactersInput = 15;
+const maxNumberOfCharactersInput = 21;
 const maxNumberOfCharactersOutput = 13;
 let processedInput = [];
 let continueAfterValidation = true;
